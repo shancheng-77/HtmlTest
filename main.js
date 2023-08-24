@@ -24,11 +24,10 @@ const checkLabelList = document.querySelectorAll(".selectLabel");
 
 checkList.forEach((element, index) => {
   element.addEventListener("change", (event) => {
-    if (event.target.value) {
-      checkLabelList.forEach((element) => {
-        element.classList.remove("selected");
-      });
+    if (event.target.checked) {
       checkLabelList[index].classList.add("selected");
+    } else {
+      checkLabelList[index].classList.remove("selected");
     }
   });
 });
@@ -62,6 +61,7 @@ function validatePatientId(inputValue) {
         "Patient ID is invalid.";
       return false;
     }
+    document.getElementById("validationResult").textContent = "";
     return true;
   } else {
     document.getElementById("validationResult").textContent = "Invalid format.";
@@ -84,24 +84,31 @@ submitBtn.addEventListener("click", (event) => {
   event.stopPropagation();
   event.preventDefault();
   const pidValidateResult = validatePatientId(pidElement.value);
-  const checkValue = document.querySelector(".selected input").value;
-  if (pidValidateResult && checkValue) {
+  const checkValue = Array.from(
+    document.querySelectorAll(".selected input")
+  ).map((item) => item.value);
+  const selectElement = document.getElementById("reason");
+  if (pidValidateResult && checkValue.length !== 0) {
     const date = dateInput.value;
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const selectedValue = selectedOption.value;
 
     console.log({
       pid: pidElement.value,
       date: date,
       time: checkValue,
+      reason: selectedValue,
     });
 
     // 清除表单
     pidElement.value = "";
-    dateInput.value = "";
+    dateInput.value = today;
     checkList.forEach((element) => {
       element.checked = false;
     });
     checkLabelList.forEach((element) => {
       element.classList.remove("selected");
     });
+    selectElement.selectedIndex = 0;
   }
 });
