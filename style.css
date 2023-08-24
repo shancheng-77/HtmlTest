@@ -348,3 +348,7 @@ footer {
     flex-direction: column;
   }
 }
+
+#validationResult {
+  color: red;
+}

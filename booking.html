@@ -24,6 +24,7 @@
               pattern="[A-Z]{2}\d+[A-Z]"
               required
             />
+            <p id="validationResult"></p>
           </div>
           <div class="form-group">
             <label for="date">Date:</label>
@@ -31,19 +32,20 @@
               type="date"
               id="date"
               name="date"
-              min="<?= date('Y-m-d'); ?>"
+              min="<?php echo date('Y-m-d'); ?>"
               required
             />
           </div>
           <div class="form-group">
             <label>Time:</label>
             <div class="pill-group">
-              <label class="selectLabel"
+              <label class="selectLabel selected"
                 ><input
                   type="checkbox"
                   name="time"
                   value="9am-12pm"
                   class="timeSelect"
+                  checked
                 />
                 9am – 12pm</label
               >
@@ -86,7 +88,7 @@
             </div>
           </div>
           <div class="form-group submit-btn-box">
-            <button type="submit" class="confirm-button">Submit</button>
+            <button class="confirm-button" id="submitBtn">Submit</button>
           </div>
         </form>
       </main>
