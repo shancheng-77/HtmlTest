@@ -72,7 +72,9 @@ function validatePatientId(inputValue) {
 const pidElement = document.getElementById("pid");
 
 pidElement.addEventListener("input", (event) => {
-  validatePatientId(event.target.value);
+  const value = event.target.value.toUpperCase();
+  pidElement.value = value;
+  validatePatientId(value);
 });
 
 // 按钮点击事件
